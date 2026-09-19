@@ -106,110 +106,43 @@
             display: block;
             margin-bottom: 5px;
         }
+        .error-code {
+            margin: 0 0 8px;
+            color: #3498db;
+            font-size: 76px;
+            font-weight: 600;
+            line-height: 1;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 26px;
+            margin: 0 0 12px;
+        }
+        .message {
+            color: #64748b;
+            margin: 0 0 28px;
+        }
+        .home-link {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 8px;
+            background-color: #3498db;
+            color: #ffffff;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .home-link:hover {
+            background-color: #2980b9;
+        }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <h2>โปรแกรมแปลงหน่วย<br>ความจุคอมพิวเตอร์</h2>
-    
-    <div class="input-group">
-        <label for="inputValue">ระบุจำนวน:</label>
-        <input type="number" id="inputValue" placeholder="กรอกตัวเลขที่นี่..." value="1" min="0" step="any">
-    </div>
-
-    <div class="input-group">
-        <label for="fromUnit">แปลงจากหน่วย (From):</label>
-        <select id="fromUnit">
-            <option value="bit">Bit (b)</option>
-            <option value="byte" selected>Byte (B)</option>
-            <option value="kb">Kilobyte (KB)</option>
-            <option value="mb">Megabyte (MB)</option>
-            <option value="gb">Gigabyte (GB)</option>
-            <option value="tb">Terabyte (TB)</option>
-            <option value="pb">Petabyte (PB)</option>
-        </select>
-    </div>
-
-    <div class="input-group">
-        <label for="toUnit">เป็นหน่วย (To):</label>
-        <select id="toUnit">
-            <option value="bit">Bit (b)</option>
-            <option value="byte">Byte (B)</option>
-            <option value="kb" selected>Kilobyte (KB)</option>
-            <option value="mb">Megabyte (MB)</option>
-            <option value="gb">Gigabyte (GB)</option>
-            <option value="tb">Terabyte (TB)</option>
-            <option value="pb">Petabyte (PB)</option>
-        </select>
-    </div>
-
-    <div class="result-box">
-        <div class="result" id="resultDisplay">ผลลัพธ์: 0.0009765625 KB</div>
-    </div>
-
-    <!-- แถบชื่อผู้จัดทำชัดเจน -->
-    <div class="creator">
-        <span>ผู้จัดทำ</span>
-        รัฐภูมิ ทรัพย์มีชัยCE6921
-    </div>
-</div>
-
-<script>
-    // อัตราการแปลงหน่วยโดยใช้ Byte เป็นตัวตั้งต้น (1 KB = 1024 Bytes)
-    const rates = {
-        "bit": 1 / 8,          // 8 bits = 1 byte
-        "byte": 1,
-        "kb": 1024,
-        "mb": Math.pow(1024, 2),
-        "gb": Math.pow(1024, 3),
-        "tb": Math.pow(1024, 4),
-        "pb": Math.pow(1024, 5)
-    };
-
-    function convert() {
-        const inputValue = parseFloat(document.getElementById('inputValue').value);
-        const fromUnit = document.getElementById('fromUnit').value;
-        const toUnit = document.getElementById('toUnit').value;
-        const resultDisplay = document.getElementById('resultDisplay');
-
-        if (isNaN(inputValue) || inputValue < 0) {
-            resultDisplay.innerText = "กรุณากรอกตัวเลขที่ถูกต้อง";
-            resultDisplay.style.color = "#e74c3c";
-            return;
-        }
-
-        // 1. แปลงจากหน่วยต้นทางให้กลายเป็น Byte ก่อน
-        const bytes = inputValue * rates[fromUnit];
-        
-        // 2. แปลงจาก Byte กลายเป็นหน่วยปลายทาง
-        const result = bytes / rates[toUnit];
-
-        // 3. จัดการการแสดงผลตัวเลข (ไม่ให้ทศนิยมยาวเกินไป)
-        let formattedResult;
-        if (result === 0) {
-             formattedResult = "0";
-        } else if (result < 0.000001 || result > 1000000000) {
-             // ใช้สัญกรณ์วิทยาศาสตร์ถ้าตัวเลขน้อยหรือมากเกินไป
-             formattedResult = result.toExponential(4);
-        } else {
-             // ใส่คอมม่าและจำกัดทศนิยมสูงสุด 6 ตำแหน่ง
-             formattedResult = result.toLocaleString('en-US', { maximumFractionDigits: 6 });
-        }
-
-        const toUnitText = document.getElementById('toUnit').options[document.getElementById('toUnit').selectedIndex].text.split(' ')[0];
-
-        resultDisplay.style.color = "#27ae60";
-        resultDisplay.innerText = `${formattedResult} ${toUnitText}`;
-    }
-    
-    // ตั้งค่าให้ระบบแปลงค่าทันทีที่มีการพิมพ์หรือเปลี่ยนหน่วย (Real-time update)
-    document.getElementById('inputValue').addEventListener('input', convert);
-    document.getElementById('fromUnit').addEventListener('change', convert);
-    document.getElementById('toUnit').addEventListener('change', convert);
-
-    // ทำงานครั้งแรกตอนโหลดหน้าเว็บ
-    window.onload = convert;
-</script>
+<main class="container" aria-labelledby="error-title">
+    <p class="error-code">404</p>
+    <h1 id="error-title">ไม่พบหน้าที่คุณกำลังค้นหา</h1>
+    <p class="message">ขออภัย หน้านี้อาจถูกย้าย ลบ หรือไม่มีอยู่ในระบบ</p>
+    <a class="home-link" href="./">กลับไปหน้าหลัก</a>
+</main>
 </body>
 </html>
